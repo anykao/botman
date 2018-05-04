@@ -9,8 +9,6 @@ script:
   - go run main.go
 
 env:
-  # $GITHUB_TOKEN environment variable
-  # Currently a `public_repo` token of `pietroalbini-cat`
   - name: "botman"
 
 notifications:
