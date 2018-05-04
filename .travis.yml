@@ -1,13 +1,12 @@
-language: python
-python: 3.6
-
+language: go
+go:
+  - "1.10"
 
 install:
-  - pip install requests
+  - go get github.com/PuerkitoBio/goquery
 
 script:
-  - ./main.py
-
+  - go run main.go
 
 env:
   # $GITHUB_TOKEN environment variable
