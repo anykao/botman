@@ -127,9 +127,7 @@ func gitPull() {
 
 func gitAddAll() {
 	app := "git"
-	arg0 := "add"
-	arg1 := "."
-	cmd := exec.Command(app, arg0, arg1)
+	cmd := exec.Command(app, "add", "-A")
 	out, err := cmd.Output()
 
 	if err != nil {
@@ -142,10 +140,7 @@ func gitAddAll() {
 
 func gitCommit(date string) {
 	app := "git"
-	arg0 := "commit"
-	arg1 := "-am"
-	arg2 := date
-	cmd := exec.Command(app, arg0, arg1, arg2)
+	cmd := exec.Command(app, "-c", "commit.gpgsign=false", "-c", "user.name=anykao", "-c" , "user.email=you.got@me.com", "commit", "-m", date)
 	out, err := cmd.Output()
 
 	if err != nil {
