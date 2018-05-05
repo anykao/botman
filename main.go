@@ -18,11 +18,9 @@ func main() {
 	//create markdown file
 	createMarkDown(dateString, filename)
 
-	// scrape("swift", filename)
-	// scrape("objective-c", filename)
+	scrape("", filename)
 	scrape("go", filename)
 	scrape("javascript", filename)
-	// scrape("ruby", filename)
 	scrape("rust", filename)
 	scrape("python", filename)
 
@@ -75,12 +73,22 @@ func scrape(language string, filename string) {
 
 	defer f.Close()
 
-	if _, err = f.WriteString(fmt.Sprintf("\n#### %s\n", language)); err != nil {
-		panic(err)
-	}
+	if language == "" {
+		if _, err = f.WriteString(fmt.Sprintf("\n#### %s\n", "Top")); err != nil {
+			panic(err)
+		}
 
-	if doc, e = goquery.NewDocument(fmt.Sprintf("https://github.com/trending?l=%s", language)); e != nil {
-		panic(e.Error())
+		if doc, e = goquery.NewDocument("https://github.com/trending"); e != nil {
+			panic(e.Error())
+		}
+	} else {
+		if _, err = f.WriteString(fmt.Sprintf("\n#### %s\n", language)); err != nil {
+			panic(err)
+		}
+
+		if doc, e = goquery.NewDocument(fmt.Sprintf("https://github.com/trending?l=%s", language)); e != nil {
+			panic(e.Error())
+		}
 	}
 
 	doc.Find("ol.repo-list li").Each(func(i int, s *goquery.Selection) {
