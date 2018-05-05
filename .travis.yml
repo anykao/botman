@@ -6,7 +6,7 @@ install:
   - go get github.com/PuerkitoBio/goquery
 
 script:
-  - go run main.go
+  - ./ci.sh
 
 env:
   - name: "botman"
