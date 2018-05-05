@@ -34,7 +34,7 @@ git checkout "${GIT_BRANCH}"
 go run main.go
 
 
-if git diff --quiet data/; then
+if git diff --quiet .; then
     echo "No changes to commit."
 else
     git status
