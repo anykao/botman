@@ -28,7 +28,7 @@ func main() {
 	scrape("rust", filename)
 	scrape("python", filename)
 
-	gitPull()
+	// gitPull()
 	gitAddAll()
 	gitCommit(dateString)
 	gitPush()
@@ -140,18 +140,23 @@ func gitAddAll() {
 
 func gitCommit(date string) {
 	app := "git"
-	cmd := exec.Command(app, "-c", "commit.gpgsign=false", "-c", "user.name=anykao", "-c" , "user.email=you.got@me.com", "commit", "-m", date)
+	cmd := exec.Command(app, "-c", "commit.gpgsign=false", "-c", "user.name=anykao", "-c", "user.email=you.got@me.com", "commit", "-m", date)
 	out, err := cmd.Output()
 
 	if err != nil {
+		println("gitCommit  err.")
 		println(err.Error())
 		return
 	}
-
+	println("gitCommit  done.")
 	print(string(out))
 }
 func gitPush() {
 	token := os.Getenv("GITHUB_TOKEN")
+	if token == "" {
+		println("Error: the $GITHUB_TOKEN environment variable is not set!")
+		return
+	}
 	app := "git"
 	arg0 := "push"
 	arg1 := fmt.Sprintf("https://x-token:%s@github.com/anykao/botman", token)
@@ -160,9 +165,11 @@ func gitPush() {
 	out, err := cmd.Output()
 
 	if err != nil {
+		println("gitPush  err.")
 		println(err.Error())
 		return
 	}
 
+	println("gitPush  done.")
 	print(string(out))
 }
