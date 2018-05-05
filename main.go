@@ -29,9 +29,9 @@ func main() {
 	scrape("python", filename)
 
 	// gitPull()
-	gitAddAll()
-	gitCommit(dateString)
-	gitPush()
+	// gitAddAll()
+	// gitCommit(dateString)
+	// gitPush()
 
 	// time.Sleep(time.Duration(24) * time.Hour)
 }
@@ -109,6 +109,7 @@ func scrape(language string, filename string) {
 		}
 	})
 }
+
 func gitPull() {
 	app := "git"
 	arg0 := "pull"
