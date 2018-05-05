@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"os/exec"
 	_ "strconv"
 	"strings"
 	"time"
@@ -13,7 +12,6 @@ import (
 )
 
 func main() {
-	//loop
 	dateString := dateString()
 	filename := dateString + ".md"
 
@@ -28,12 +26,6 @@ func main() {
 	scrape("rust", filename)
 	scrape("python", filename)
 
-	// gitPull()
-	// gitAddAll()
-	// gitCommit(dateString)
-	// gitPush()
-
-	// time.Sleep(time.Duration(24) * time.Hour)
 }
 
 func dateString() string {
@@ -108,69 +100,4 @@ func scrape(language string, filename string) {
 			panic(err)
 		}
 	})
-}
-
-func gitPull() {
-	app := "git"
-	arg0 := "pull"
-	arg1 := "origin"
-	arg2 := "master"
-	cmd := exec.Command(app, arg0, arg1, arg2)
-	out, err := cmd.Output()
-
-	if err != nil {
-		println(err.Error())
-		return
-	}
-
-	print(string(out))
-}
-
-func gitAddAll() {
-	app := "git"
-	cmd := exec.Command(app, "add", "-A")
-	out, err := cmd.Output()
-
-	if err != nil {
-		println(err.Error())
-		return
-	}
-
-	print(string(out))
-}
-
-func gitCommit(date string) {
-	app := "git"
-	cmd := exec.Command(app, "-c", "commit.gpgsign=false", "-c", "user.name=anykao", "-c", "user.email=you.got@me.com", "commit", "-m", date)
-	out, err := cmd.Output()
-
-	if err != nil {
-		println("gitCommit  err.")
-		println(err.Error())
-		return
-	}
-	println("gitCommit  done.")
-	print(string(out))
-}
-func gitPush() {
-	token := os.Getenv("GITHUB_TOKEN")
-	if token == "" {
-		println("Error: the $GITHUB_TOKEN environment variable is not set!")
-		return
-	}
-	app := "git"
-	arg0 := "push"
-	arg1 := fmt.Sprintf("https://x-token:%s@github.com/anykao/botman", token)
-	arg2 := "master"
-	cmd := exec.Command(app, arg0, arg1, arg2)
-	out, err := cmd.Output()
-
-	if err != nil {
-		println("gitPush  err.")
-		println(err.Error())
-		return
-	}
-
-	println("gitPush  done.")
-	print(string(out))
 }

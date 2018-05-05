@@ -4,9 +4,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 
-GIT_COMMIT_MESSAGE="Automatic stats update"
-GIT_EMAIL="you.got@me.com"
-GIT_NAME="anykao"
+GIT_COMMIT_MESSAGE="daily update"
 GIT_REPO="anykao/botman"
 GIT_BRANCH="master"
 
@@ -19,6 +17,16 @@ fi
 
 if [[ -z "${GITHUB_TOKEN}" ]]; then
     echo "Error: the \$GITHUB_TOKEN environment variable is not set!"
+    exit 1
+fi
+
+if [[ -z "${GIT_NAME}" ]]; then
+    echo "Error: the \$GIT_NAME environment variable is not set!"
+    exit 1
+fi
+
+if [[ -z "${GIT_EMAIL}" ]]; then
+    echo "Error: the \$GIT_EMAIL environment variable is not set!"
     exit 1
 fi
 
