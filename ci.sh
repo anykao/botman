@@ -33,15 +33,10 @@ fi
 git checkout "${GIT_BRANCH}"
 go run main.go
 
-
-if git diff --quiet .; then
-    echo "No changes to commit."
-else
-    git status
-    git add *.md
-    git -c "commit.gpgsign=false" \
-        -c "user.name=${GIT_NAME}" \
-        -c "user.email=${GIT_EMAIL}" \
-        commit -m "${GIT_COMMIT_MESSAGE}"
-    git push "https://x-token:${GITHUB_TOKEN}@github.com/${GIT_REPO}" "${GIT_BRANCH}"
-fi
+git status
+git add *.md
+git -c "commit.gpgsign=false" \
+    -c "user.name=${GIT_NAME}" \
+    -c "user.email=${GIT_EMAIL}" \
+    commit -m "${GIT_COMMIT_MESSAGE}"
+git push "https://x-token:${GITHUB_TOKEN}@github.com/${GIT_REPO}" "${GIT_BRANCH}"
