@@ -19,9 +19,10 @@ func main() {
 	createMarkDown(dateString, filename)
 
 	scrape("", filename)
+	scrape("rust", filename)
+	scrape("dart", filename)
 	scrape("go", filename)
 	scrape("javascript", filename)
-	scrape("rust", filename)
 	scrape("python", filename)
 
 }
